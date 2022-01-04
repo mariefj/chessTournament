@@ -6,7 +6,9 @@ class Display():
 		menu["h"] = "Retour à l'accueil"
 		for index, text in menu.items():
 			print(index, text)
+		print()
 		response = input("Votre choix: ")
+		print()
 		if response in menu:
 			return response
 		else:
@@ -31,10 +33,35 @@ class Display():
 		print("Réponse incorrecte, réessayez")
 		self.verified_response(message, pattern)
 
+	def display_player(self, player):
+		print(
+			"id={0:<3}".format(player.doc_id),
+			"{0:20}".format(player["first_name"]),
+			"{0:20}".format(player["last_name"]),
+			"{0:17}".format(player["birthdate"]),
+			"{0:5}".format(player["gender"]),
+			player["rank"],
+			sep=" | "
+		)
+	def display_header_player(self):
+		print(
+			"{0:6}".format("ID"),
+			"{0:20}".format("Prénom"),
+			"{0:20}".format("Nom"),
+			"{0:17}".format("Date de naissance"),
+			"{0:5}".format("Genre"),
+			"Classement",
+			sep=" | "
+		)
+		print()
+
 	def display_list_players(self, list_players):
+		self.display_title("Liste des joueurs")
 		if not list_players:
-			print("Il n'y a aucun joueur enregistré pour le moment")
+			print("Il n'y a aucun joueur enregistré pour le moment\n")
 		else:
+			self.display_header_player()
 			for player in list_players:
-				print("id={}".format(player.doc_id), player["first_name"], player["last_name"], player["birthdate"], player["gender"], player["rank"], sep=" | ")
+				self.display_player(player)
+			print()
 

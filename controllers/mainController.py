@@ -11,35 +11,66 @@ class mainController():
 		menu = {"1": "Lancer un tournoi", "2": "Gérer les joueurs", "3": "Accéder aux données", "q": "Quitter"}
 		response = self.display.display_menu(menu)
 		if response == "1":
-			self.launchTournament()
+			self.launch_tournament()
 		if response == "2":
-			self.managePlayers()
+			self.manage_players()
 		if response == "3":
-			self.getData()
+			self.get_data()
 		if response == "q":
 			exit()
 		elif response == "h":
 			self.home()
 
-	def launchTournament(self):
+	def launch_tournament(self):
 		self.display.display_title("Gestion du tournoi")
 		menu = {"1": "Créer un tournoi", "2": "Charger un tournoi"}
-		self.display.display_menu(menu)
-
-	def managePlayers(self):
-		self.display.display_title("Gestion des joueurs")
-		menu = {"1": "Créer un joueur", "2": "Voir les joueurs par ordre alphabétique", "3": "Voir les joueurs par ordre de classement"}
 		response = self.display.display_menu(menu)
 		if response == "1":
-			self.createPlayer()
+			self.create_tournament()
 		if response == "2":
-			self.getPlayersSorted("alpha")
-		if response == "3":
-			self.getPlayersSorted("rank")
+			self.load_tournament()
 		elif response == "h":
 			self.home()
 
-	def createPlayer(self):
+	def manage_players(self):
+		self.display.display_title("Gestion des joueurs")
+		menu = {"1": "Créer un joueur", "2": "Liste des joueurs (ordre alphabétique)", "3": "Liste des joueurs (ordre de classement)"}
+		response = self.display.display_menu(menu)
+		if response == "1":
+			self.create_player()
+		if response == "2":
+			self.get_players_sorted("alpha")
+		if response == "3":
+			self.get_players_sorted("rank")
+		elif response == "h":
+			self.home()
+		self.manage_players()
+
+	def create_tournament(self):
+		self.display.display_title("Création d'un tournoi")
+		menu = {"1": "Créer un joueur", "2": "Charger un joueur par son id", "3": "Charger un joueur par son nom"}
+		response = self.display.display_menu(menu)
+		if response == "1":
+			self.create_player()
+		if response == "2":
+			self.select_player_by_id()
+		if response == "3":
+			self.select_player_by_name()
+		elif response == "h":
+			self.home()
+		self.create_tournament()
+
+
+	def select_player_by_id(self):
+		index = self.display.verified_response("Veuillez entrer l'id du joueur: ", "^\d{1,4}$")
+		self.display.display_player(Player.get_player_by_id(index))
+
+	def select_player_by_name(self):
+		first_name = self.display.verified_response("Veuillez entrer le prénom du joueur: ", "^[a-zA-Z]+$")
+		last_name = self.display.verified_response("Veuillez entrer le nom du joueur: ", "^[a-zA-Z]+$")
+		self.display.display_player(Player.get_player_by_name(first_name, last_name))
+
+	def create_player(self):
 		first_name = self.display.verified_response("Veuillez entrer le prénom: ", "^[a-zA-Z]+$")
 		last_name = self.display.verified_response("Veuillez entrer le nom: ", "^[a-zA-Z]+$")
 		birthdate = self.display.verified_response("Veuillez entrer la date de naissance (jj/mm/aaaa): ", "date")
@@ -49,10 +80,18 @@ class mainController():
 		player = Player(first_name, last_name, birthdate, gender, rank)
 		player.save()
 
-	def getPlayersSorted(self, sort_type):
-		list_players = Player.sortAlpha() if sort_type == "alpha" else Player.sortRank()
+	def get_player_sSorted(self, sort_type):
+		list_players = Player.sort_alpha() if sort_type == "alpha" else Player.sort_rank()
 		self.display.display_list_players(list_players)
 
-	def getData(self):
+	def get_data(self):
 		self.display.display_title("Toutes les données")
-		menu = {"1": "Liste des joueurs", "2": "Liste des tournois", "3": "Voir les données d'un tournoi"}
+		menu = {"1": "Liste des joueurs (ordre alphabétique)", "2": "Liste des joueurs (ordre de classement)", "3": "Liste des tournois"}
+		if response == "1":
+			self.get_players_sorted("alpha")
+		if response == "2":
+			self.get_players_sorted("rank")
+		if response == "3":
+			self.getTournaments()
+		elif response == "h":
+			self.home()

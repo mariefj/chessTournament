@@ -27,11 +27,19 @@ class Player:
 		return TinyDB("db.json").table("players").all()
 
 	@staticmethod
-	def sortAlpha():
+	def get_player_by_id(id):
+		return Player.get_all_players().index(id)
+
+	@staticmethod
+	def get_player_by_name(first_name, last_name):
+		return TinyDB("db.json").table("players").search((Query().first_name == first_name) & (Query().last_name == last_name))
+
+	@staticmethod
+	def sort_alpha():
 		list_players = Player.get_all_players()
 		return sorted(list_players, key=lambda i: (i["last_name"], i["first_name"], i["rank"]))
 
 	@staticmethod
-	def sortRank():
+	def sort_rank():
 		list_players = Player.get_all_players()
 		return sorted(list_players, key=lambda i: (i["rank"], i["last_name"], i["first_name"]))

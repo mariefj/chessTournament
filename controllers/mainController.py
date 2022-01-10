@@ -48,6 +48,18 @@ class mainController():
 
 	def create_tournament(self):
 		self.display.display_title("Création d'un tournoi")
+		name = self.display.verified_response("Veuillez entrer le nom: ", "^[a-zA-Z]+$")
+		location = self.display.verified_response("Veuillez entrer le lieu: ", "^[a-zA-Z]+$")
+		nb_rounds = self.display.verified_response("Veuillez entrer le nombre de tours: ", "^\d+$")
+		time = self.display.verified_response("Veuillez entrer le temps de jeu: ", "^(3|5|15|60)$")
+		description = self.display.verified_response("Veuillez entrer une description: ", "^[a-zA-Z]+$")
+		list_rounds = []
+		list_players = []
+
+		tournament = Tournament(name, location, nb_rounds, list_rounds, list_players, time, description)
+		tournament.save()
+
+	def choose_player(self):
 		menu = {"1": "Créer un joueur", "2": "Charger un joueur par son id", "3": "Charger un joueur par son nom"}
 		response = self.display.display_menu(menu)
 		if response == "1":
@@ -58,17 +70,25 @@ class mainController():
 			self.select_player_by_name()
 		elif response == "h":
 			self.home()
-		self.create_tournament()
+		self.choose_player()
 
 
 	def select_player_by_id(self):
-		index = self.display.verified_response("Veuillez entrer l'id du joueur: ", "^\d{1,4}$")
-		self.display.display_player(Player.get_player_by_id(index))
+		id = self.display.verified_response("Veuillez entrer l'id du joueur: ", "^\d{1,4}$")
+		return Player.get_player_by_id(int(id))
 
 	def select_player_by_name(self):
 		first_name = self.display.verified_response("Veuillez entrer le prénom du joueur: ", "^[a-zA-Z]+$")
 		last_name = self.display.verified_response("Veuillez entrer le nom du joueur: ", "^[a-zA-Z]+$")
-		self.display.display_player(Player.get_player_by_name(first_name, last_name))
+		list_matches = Player.get_player_by_name(first_name, last_name)
+		if list_matches == []:
+			print("Joueur non trouvé, recommencez")
+			self.select_player_by_name()
+		elif len(list_matches) == 1:
+			return self.display.display_player(list_matches[0])
+		else:
+			self.display.display_list_players(list_matches)
+			self.select_player_by_id()
 
 	def create_player(self):
 		first_name = self.display.verified_response("Veuillez entrer le prénom: ", "^[a-zA-Z]+$")
@@ -80,7 +100,7 @@ class mainController():
 		player = Player(first_name, last_name, birthdate, gender, rank)
 		player.save()
 
-	def get_player_sSorted(self, sort_type):
+	def get_players_sorted(self, sort_type):
 		list_players = Player.sort_alpha() if sort_type == "alpha" else Player.sort_rank()
 		self.display.display_list_players(list_players)
 

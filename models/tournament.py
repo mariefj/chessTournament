@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
 class Tournament:
-	def __init__(self, name, location, nb_rounds=4, list_rounds, list_players, time=60, description):
+	def __init__(self, name, location, nb_rounds=4, list_rounds, list_players, time, description):
 		self.name = name
 		self.location = location
 		self.nb_rounds = nb_rounds

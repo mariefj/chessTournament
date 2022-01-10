@@ -12,8 +12,8 @@ class Player:
 
 	def get_serialized_player(self):
 		return {
-			"first_name": self.first_name,
-			"last_name": self.last_name,
+			"first_name": self.first_name.lower(),
+			"last_name": self.last_name.lower(),
 			"birthdate": self.birthdate,
 			"gender": self.gender,
 			"rank": self.rank,
@@ -28,11 +28,11 @@ class Player:
 
 	@staticmethod
 	def get_player_by_id(id):
-		return Player.get_all_players().index(id)
+		return TinyDB("db.json").table("players").get(doc_id=id)
 
 	@staticmethod
 	def get_player_by_name(first_name, last_name):
-		return TinyDB("db.json").table("players").search((Query().first_name == first_name) & (Query().last_name == last_name))
+		return TinyDB("db.json").table("players").search((Query().first_name == first_name.lower()) & (Query().last_name == last_name.lower()))
 
 	@staticmethod
 	def sort_alpha():

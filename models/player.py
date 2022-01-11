@@ -2,12 +2,13 @@ from tinydb import TinyDB, Query
 from operator import attrgetter
 
 class Player:
-	def __init__(self, first_name, last_name, birthdate, gender, rank=0):
+	def __init__(self, first_name, last_name, birthdate, gender, rank=0, doc_id=0):
 		self.first_name = first_name
 		self.last_name = last_name
 		self.birthdate = birthdate
 		self.gender = gender
 		self.rank = rank
+		self.doc_id = doc_id
 		self.list_players = TinyDB("db.json").table("players")
 
 	def get_serialized_player(self):
@@ -20,7 +21,10 @@ class Player:
 		}
 
 	def save(self):
-		self.list_players.insert(self.get_serialized_player())
+		if (self.doc_id):
+			self.list_players.update(self.get_serialized_player(), doc_ids=[self.doc_id])
+		else:
+			self.list_players.insert(self.get_serialized_player())
 
 	@staticmethod
 	def get_all_players():

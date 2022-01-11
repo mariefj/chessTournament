@@ -2,6 +2,10 @@ import re
 import datetime
 
 class Display():
+
+	def display_message(self, message):
+		print(message)
+
 	def display_menu(self, menu):
 		menu["h"] = "Retour à l'accueil"
 		for index, text in menu.items():

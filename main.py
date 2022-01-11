@@ -1,6 +1,6 @@
-from controllers.mainController import mainController
+from controllers.mainController import MainController
 
 
 if __name__=="__main__":
-	mainController = mainController()
+	mainController = MainController()
 	mainController.home()

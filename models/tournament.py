@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
 class Tournament:
-	def __init__(self, name, location, list_rounds, list_players, time, description, nb_rounds=4,):
+	def __init__(self, name, location, list_rounds, list_players, time, description, nb_rounds=4, doc_id=0):
 		self.name = name
 		self.location = location
 		self.nb_rounds = nb_rounds
@@ -9,7 +9,9 @@ class Tournament:
 		self.list_players = list_players
 		self.time = time
 		self.description = description
-		self.db = TinyDB("data/tournament.json")
+		self.list_tournaments = TinyDB("db.json").table("tournaments")
+		self.doc_id = doc_id
+
 
 	def get_serialized_tournament(self):
 		return {
@@ -21,3 +23,20 @@ class Tournament:
 			"time": self.time,
 			"description": self.description,
 		}
+
+
+	def save(self):
+		if (self.doc_id):
+			self.list_tournaments.update(self.get_serialized_tournament(), doc_ids=[self.doc_id])
+		else:
+			self.list_tournaments.insert(self.get_serialized_tournament())
+
+
+	@staticmethod
+	def get_all_tournaments():
+		return TinyDB("db.json").table("tournaments").all()
+
+
+	@staticmethod
+	def get_tournament_by_id(id):
+		return TinyDB("db.json").table("tournaments").get(doc_id=id)

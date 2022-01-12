@@ -16,8 +16,10 @@ class PlayerController():
 			self.create_player()
 		if response == "2":
 			self.get_players_sorted("alpha")
+			self.modify_player()
 		if response == "3":
 			self.get_players_sorted("rank")
+			self.modify_player()
 		elif response == "h":
 			self.home()
 		self.manage_players()
@@ -27,18 +29,20 @@ class PlayerController():
 		menu = {"1": "Créer un joueur", "2": "Charger un joueur par son id", "3": "Charger un joueur par son nom"}
 		response = self.display.display_menu(menu)
 		if response == "1":
-			self.create_player()
+			return self.create_player()
 		if response == "2":
-			self.select_player_by_id()
+			self.get_players_sorted("alpha")
+			return self.select_player_by_id()
 		if response == "3":
-			self.select_player_by_name()
+			self.get_players_sorted("alpha")
+			return self.select_player_by_name()
 		elif response == "h":
 			self.home()
 		self.choose_player()
 
 
 	def select_player_by_id(self):
-		id = self.display.verified_response("Veuillez entrer l'id du joueur: ", "^\d{1,4}$")
+		id = self.display.verified_response("Veuillez entrer l'id du joueur: ", "^\d+$")
 		player = Player.get_player_by_id(int(id))
 		if not player:
 			self.display.display_message("Joueur non trouvé, recommencez")
@@ -54,10 +58,12 @@ class PlayerController():
 			self.display.display_message("Joueur non trouvé, recommencez")
 			return self.select_player_by_name()
 		elif len(list_matches) == 1:
-			return self.display.display_player(list_matches[0])
+			player = list_matches[0]
+			return Player(**player, doc_id=int(id))
 		else:
 			self.display.display_list_players(list_matches)
 			return self.select_player_by_id()
+
 
 	def create_player(self):
 		first_name = self.display.verified_response("Veuillez entrer le prénom: ", "^[a-zA-Z]+$")
@@ -69,22 +75,23 @@ class PlayerController():
 		player = Player(first_name, last_name, birthdate, gender, rank)
 		player.save()
 
+		return player
+
 
 	def get_players_sorted(self, sort_type):
 		list_players = Player.sort_alpha() if sort_type == "alpha" else Player.sort_rank()
 		self.display.display_list_players(list_players)
-		response = self.display.verified_response("Souhaitez vous changer le classement d'un joueur ? 1: oui 2: non\n", "^(1|2)$")
-		if response == "1":
-			self.modify_player()
-		if response == "2":
-			self.manage_players()
 
 
 	def modify_player(self):
-		self.display.display_message("Choisissez l'id d'un joueur pour changer son classement")
-		player = self.select_player_by_id()
-		rank = self.display.verified_response("Veuillez entrer le classement (score compris entre 100 et 9999: ", "^\d{3,4}$")
+		response = self.display.verified_response("Souhaitez vous changer le classement d'un joueur ? 1: oui 2: non\n", "^(1|2)$")
+		if response == "1":
+			self.display.display_message("Choisissez l'id d'un joueur pour changer son classement")
+			player = self.select_player_by_id()
+			rank = self.display.verified_response("Veuillez entrer le classement (score compris entre 100 et 9999: ", "^\d{3,4}$")
 
-		player.rank = rank
-		player.save()
+			player.rank = rank
+			player.save()
+		if response == "2":
+			self.manage_players()
 

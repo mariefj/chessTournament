@@ -37,6 +37,8 @@ class Display():
 		print("Réponse incorrecte, réessayez")
 		self.verified_response(message, pattern)
 
+	#******************PLAYER*****************************************************************************************
+
 	def display_player(self, player):
 		print(
 			"id={0:<3}".format(player.doc_id),
@@ -69,3 +71,37 @@ class Display():
 				self.display_player(player)
 			print()
 
+	#******************TOURNAMENT*****************************************************************************************
+
+	def display_tournament(self, tournament):
+		print(
+			"id={0:<3}".format(tournament.doc_id),
+			"{0:20}".format(tournament["name"]),
+			"{0:20}".format(tournament["location"]),
+			"{0:20}".format(tournament["nb_rounds"]),
+			"{0:20}".format(tournament["time"]),
+			tournament["description"],
+			sep=" | "
+		)
+
+	def display_header_tournament(self):
+		print(
+			"{0:6}".format("ID"),
+			"{0:20}".format("Nom"),
+			"{0:20}".format("Lieu"),
+			"{0:17}".format("Nombre de tours"),
+			"{0:5}".format("Durée des matchs"),
+			"description",
+			sep=" | "
+		)
+		print()
+
+	def display_list_tournaments(self, list_tournaments):
+		self.display_title("Liste des tournois")
+		if not list_tournaments:
+			print("Il n'y a aucun tournoi enregistré pour le moment\n")
+		else:
+			self.display_header_tournament()
+			for tournament in list_tournaments:
+				self.display_tournament(tournament)
+			print()

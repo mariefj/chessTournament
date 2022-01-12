@@ -29,11 +29,12 @@ class MainController():
 	def get_data(self):
 		self.display.display_title("Toutes les données")
 		menu = {"1": "Liste des joueurs (ordre alphabétique)", "2": "Liste des joueurs (ordre de classement)", "3": "Liste des tournois"}
+		response = self.display.display_menu(menu)
 		if response == "1":
 			self.playerController.get_players_sorted("alpha")
 		if response == "2":
 			self.playerController.get_players_sorted("rank")
 		if response == "3":
-			self.tournamentController.getTournaments()
+			self.tournamentController.get_list_tournaments()
 		elif response == "h":
 			self.home()

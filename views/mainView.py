@@ -6,6 +6,7 @@ class Display():
 	def display_message(self, message):
 		print(message)
 
+
 	def display_menu(self, menu):
 		menu["h"] = "Retour à l'accueil"
 		for index, text in menu.items():
@@ -19,10 +20,12 @@ class Display():
 			print("Réponse incorrecte, réessayez")
 			self.display_menu(menu)
 
+
 	def display_title(self, title):
 		print()
 		print("----", title.upper(), "----")
 		print()
+
 
 	def verified_response(self, message, pattern):
 		response = input(message)
@@ -49,6 +52,8 @@ class Display():
 			player["rank"],
 			sep=" | "
 		)
+
+
 	def display_header_player(self):
 		print(
 			"{0:6}".format("ID"),
@@ -60,6 +65,7 @@ class Display():
 			sep=" | "
 		)
 		print()
+
 
 	def display_list_players(self, list_players):
 		self.display_title("Liste des joueurs")
@@ -84,6 +90,7 @@ class Display():
 			sep=" | "
 		)
 
+
 	def display_header_tournament(self):
 		print(
 			"{0:6}".format("ID"),
@@ -96,6 +103,7 @@ class Display():
 		)
 		print()
 
+
 	def display_list_tournaments(self, list_tournaments):
 		self.display_title("Liste des tournois")
 		if not list_tournaments:
@@ -105,3 +113,12 @@ class Display():
 			for tournament in list_tournaments:
 				self.display_tournament(tournament)
 			print()
+
+
+	def display_round_name(self, round):
+		print()
+		print("----", round.name.upper(), "----")
+		print()
+
+
+	# def display_pairs_players(self, player_1, player_2):

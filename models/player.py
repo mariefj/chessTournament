@@ -48,11 +48,3 @@ class Player:
 		list_players = Player.get_all_players()
 		return sorted(list_players, key=lambda i: (i["rank"], i["last_name"], i["first_name"]))
 
-	@staticmethod
-	def sort_rank_round(list_players):
-		list_players_for_round = []
-		for id in list_players:
-			player = Player.get_player_by_id(int(id))
-			if player:
-				list_players_for_round.append({"id": id, "rank": player["rank"], "score": 0})
-		return sorted(list_players_for_round, key=lambda i: (i["rank"], i["id"]))

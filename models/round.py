@@ -1,7 +1,7 @@
 from tinydb import TinyDB, Query
 
 class Round:
-	def __init__(self, name, list_games, time_start, is_over):
+	def __init__(self, name, list_games, time_start, time_end, is_over):
 		self.name = name
 		self.list_games = list_games
 		self.time_start = time_start

@@ -18,7 +18,7 @@ class Display():
 			return response
 		else:
 			print("Réponse incorrecte, réessayez")
-			self.display_menu(menu)
+			return self.display_menu(menu)
 
 
 	def display_title(self, title):
@@ -37,8 +37,9 @@ class Display():
 				pass
 		if re.search(pattern, response):
 			return response
-		print("Réponse incorrecte, réessayez")
-		self.verified_response(message, pattern)
+		else:
+			print("Réponse incorrecte, réessayez")
+			return self.verified_response(message, pattern)
 
 	#******************PLAYER*****************************************************************************************
 

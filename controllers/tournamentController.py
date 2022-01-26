@@ -182,8 +182,8 @@ class TournamentController():
 			response_1 = self.display.verified_response("", "^(0|1|0.5)$")
 			if response_1:
 				game[0][1] = game[0][1] + float(response_1)
-			response_2 = self.display.verified_response("", "^(0|1|0.5)$")
 			self.display.display_player_for_score(player_2)
+			response_2 = self.display.verified_response("", "^(0|1|0.5)$")
 			if response_2:
 				game[1][1] = game[1][1] + float(response_2)
 

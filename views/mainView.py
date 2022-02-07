@@ -123,14 +123,14 @@ class Display():
 
 
 	def display_pairs_players(self, player_1, player_2):
-		print()
 		message = 	"Match opposant les joueurs "\
 				+ str(player_1.first_name) + " " + str(player_1.last_name)\
-				+ " id(" + str(player_1.doc_id) + ")"\
+				+ " id (" + str(player_1.doc_id) + ")"\
 				+ " et "\
 				+ str(player_2.first_name) + " " + str(player_2.last_name)\
-				+ " id(" + str(player_2.doc_id) + ")"
+				+ " id (" + str(player_2.doc_id) + ")"
 		print(message)
+		print()
 
 
 	def display_player_for_score(self, player):

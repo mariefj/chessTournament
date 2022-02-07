@@ -83,13 +83,17 @@ class TournamentController():
 		return Tournament(**tournament, doc_id=int(id))
 
 
-	def sort_rank_round(self, list_players):
+	def sort_round(self, list_players, sort_type):
 		list_players_for_round = []
 		for id in list_players:
 			player = Player.get_player_by_id(int(id))
+			player = Player(**player, doc_id=int(id))
 			if player:
-				list_players_for_round.append({"id": id, "rank": player["rank"], "score": 0})
-		return sorted(list_players_for_round, key=lambda i: (i["rank"], i["id"]))
+				list_players_for_round.append(player)
+		if sort_type == "rank":
+			return sorted(list_players_for_round, key=lambda i: (i.rank, i.doc_id))
+		else:
+			return sorted(list_players_for_round, key=lambda i: (i.score, i.rank))
 
 
 	def play_swiss_system(self, tournament):
@@ -100,10 +104,19 @@ class TournamentController():
 			else:
 				nb_rounds_done = len(tournament.list_rounds)
 				if nb_rounds_done == 0:
-					list_players = self.sort_rank_round(tournament.list_players)
+					list_players = self.sort_round(tournament.list_players, "rank")
 				else:
-					last_round = tournament.list_rounds[nb_rounds_done - 1]
-					list_players = sorted(last_round.list_players, key=lambda i: (i["score"], i["rank"], i["id"]))
+					list_players = self.sort_round(tournament.list_players, "score")
+
+				# ********************TEST*************************
+				print()
+				print("LIST PLAYERS SORTED = ")
+				list = []
+				for player in list_players:
+					list.append([player.doc_id, player.rank, player.score])
+				print(list)
+				print()
+				# *************************************************
 
 				self.display.display_message("Début du tour")
 
@@ -119,11 +132,11 @@ class TournamentController():
 					player_2 = Player(**player_2, doc_id=game[1][0])
 
 					self.display.display_pairs_players(player_1, player_2)
-				time_start = datetime.datetime.today()
+				time_start = str(datetime.datetime.today())
 
 				is_over = self.display.verified_response("Tapez 1 pour marquer le tour comme terminé: ", "^(1)$")
 				if is_over:
-					time_end = datetime.datetime.today()
+					time_end = str(datetime.datetime.today())
 					self.display.display_message("Fin du tour, veuillez rentrer les scores des joueurs: ")
 					list_games = self.fill_scores(list_games)
 
@@ -135,7 +148,7 @@ class TournamentController():
 	def get_list_all_pairs(self, list_rounds):
 		list_pairs = []
 		for round in list_rounds:
-			for game in list_rounds.list_games:
+			for game in round["list_games"]:
 				player_1 = game[0][0]
 				player_2 = game[1][0]
 				list_pairs.append((player_1, player_2))
@@ -147,21 +160,43 @@ class TournamentController():
 		half = len(list_players) // 2
 		list_sup = list_players[:half]
 		list_inf = list_players[half:]
+
+		# ********************TEST*************************
+		print()
+		print("LIST SUP = ")
+		list_sup_display = []
+		list_inf_display = []
+		for player in list_sup:
+			list_sup_display.append([player.doc_id, player.rank, player.score])
+		print(list_sup_display)
+		print("LIST INF = ")
+		for player in list_inf:
+			list_inf_display.append([player.doc_id, player.rank, player.score])
+		print(list_inf_display)
+		print()
+		# *************************************************
+
 		list_games = []
 		i = 0
 		j = 0
+		list_players_taken = []
 		while len(list_games) < (len(list_players) / 2):
 			if len(list_rounds) > 0:
-				list_pairs = self.get_list_pairs(list_rounds)
-				pair = (list_sup[i]["id"], list_inf[j]["id"])
-				while pair in list_pairs:
+				list_pairs = self.get_list_all_pairs(list_rounds)
+				print("LIST ALL = ", list_pairs)
+				pair = (list_sup[i].doc_id, list_inf[j].doc_id)
+				print("PAIR = ", pair)
+				while (pair in list_pairs) or (list_sup[i].doc_id in list_players_taken) or (list_inf[i].doc_id in list_players_taken):
 					j = j + 1
+					if j == len(list_inf):
+						j = 0
+					pair = (list_sup[i].doc_id, list_inf[j].doc_id)
 			player_1 = list_sup[i]
 			player_2 = list_inf[j]
-			print("player 1 = ", player_1)
-			print("player 2 = ", player_2)
-			list_games.append(([player_1["id"], player_1["score"]], [player_2["id"], player_2["score"]]))
-			print("list_games = ", list_games)
+			list_players_taken.append(player_1.doc_id)
+			list_players_taken.append(player_2.doc_id)
+			print("LIST PLAYERS TAKEN = ", list_players_taken)
+			list_games.append(([player_1.doc_id, 0], [player_2.doc_id, 0]))
 			j = j + 1
 			if j == len(list_inf):
 				j = 0
@@ -182,10 +217,15 @@ class TournamentController():
 			response_1 = self.display.verified_response("", "^(0|1|0.5)$")
 			if response_1:
 				game[0][1] = game[0][1] + float(response_1)
+				player_1.score = player_1.score + game[0][1]
 			self.display.display_player_for_score(player_2)
 			response_2 = self.display.verified_response("", "^(0|1|0.5)$")
 			if response_2:
 				game[1][1] = game[1][1] + float(response_2)
+				player_2.score = player_2.score + game[1][1]
+
+			player_1.save()
+			player_2.save()
 
 		return list_games
 

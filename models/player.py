@@ -2,12 +2,13 @@ from tinydb import TinyDB, Query
 from operator import attrgetter
 
 class Player:
-	def __init__(self, first_name, last_name, birthdate, gender, rank=0, doc_id=0):
+	def __init__(self, first_name, last_name, birthdate, gender, rank=0, score=0, doc_id=0):
 		self.first_name = first_name
 		self.last_name = last_name
 		self.birthdate = birthdate
 		self.gender = gender
 		self.rank = rank
+		self.score = score
 		self.doc_id = doc_id
 		self.list_players = TinyDB("db.json").table("players")
 
@@ -18,6 +19,7 @@ class Player:
 			"birthdate": self.birthdate,
 			"gender": self.gender,
 			"rank": self.rank,
+			"score": self.score,
 		}
 
 	def save(self):

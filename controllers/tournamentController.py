@@ -16,6 +16,59 @@ class TournamentController():
 		self.playerController = PlayerController(home)
 
 
+	def get_info_tournaments(self):
+		self.get_list_tournaments()
+		menu = {"1": "Voir les infos d'un tournoi"}
+		response = self.display.display_menu(menu)
+		if response == "1":
+			tournament =  self.select_tournament_by_id()
+			self.choose_info_tournament(tournament)
+		elif response == "h":
+			self.home()
+		self.get_info_tournaments()
+
+
+	def choose_info_tournament(self, tournament):
+		menu = {"1": "Voir les joueurs du tournoi", "2": "Voir les tours du tournoi", "3": "Voir les matchs du tournoi"}
+		response = self.display.display_menu(menu)
+		if response == "1":
+			self.get_list_players_tournament(tournament)
+		if response == "2":
+			self.get_list_rounds_tournament(tournament.list_rounds)
+		if response == "3":
+			self.get_list_games_tournament(tournament.list_rounds)
+		elif response == "h":
+			self.home()
+		self.choose_info_tournament(tournament)
+
+
+	def get_list_players_tournament(self, tournament):
+		list_players = []
+		for id in tournament.list_players:
+			list_players.append(Player.get_player_by_id(id))
+		self.display.display_list_players(list_players)
+
+
+	def get_list_rounds_tournament(self, list_rounds):
+		self.display.display_list_rounds(list_rounds)
+
+
+	def get_list_games_tournament(self, list_rounds):
+		list_games = []
+		for round in list_rounds:
+			for game in round["list_games"]:
+				player_1 = Player.get_player_by_id(game[0][0])
+				player_2 = Player.get_player_by_id(game[1][0])
+				score_1 = game[0][1]
+				score_2 = game[1][1]
+				self.display.display_game(player_1, player_2, score_1, score_2)
+
+
+	def get_list_tournaments(self):
+		list_tournaments = Tournament.get_all_tournaments()
+		self.display.display_list_tournaments(list_tournaments)
+
+
 	def launch_tournament(self):
 		self.display.display_title("Gestion des tournois")
 		menu = {"1": "Créer un tournoi", "2": "Charger un tournoi"}
@@ -59,7 +112,20 @@ class TournamentController():
 			tournament = self.add_players(tournament)
 		else:
 			self.display.display_title("Lancement du tournoi !")
-			self.play_swiss_system(tournament)
+			tournament = self.play_swiss_system(tournament)
+			if len(tournament.list_rounds) == int(tournament.nb_rounds):
+				self.display.display_title("Fin du tournoi !")
+				self.update_rank_players(tournament.list_players)
+
+
+	def update_rank_players(self, list_players):
+		for id in list_players:
+			player = Player.get_player_by_id(id)
+			self.display.display_player(player)
+			rank = self.display.verified_response("Veuillez entrer le nouveau classement (score compris entre 100 et 9999: ", "^\d{3,4}$")
+			player.rank = rank
+			player.save()
+
 
 	def add_players(self, tournament):
 		self.display.display_message("\nPour commencer le tournoi veuillez ajouter des joueurs")
@@ -144,6 +210,8 @@ class TournamentController():
 				tournament.list_rounds.append(Round.get_serialized_round(round))
 				tournament.save()
 
+		return tournament
+
 
 	def get_list_all_pairs(self, list_rounds):
 		list_pairs = []
@@ -186,7 +254,7 @@ class TournamentController():
 				print("LIST ALL = ", list_pairs)
 				pair = (list_sup[i].doc_id, list_inf[j].doc_id)
 				print("PAIR = ", pair)
-				while (pair in list_pairs) or (list_sup[i].doc_id in list_players_taken) or (list_inf[i].doc_id in list_players_taken):
+				while (pair in list_pairs) or (list_sup[i].doc_id in list_players_taken) or (list_inf[j].doc_id in list_players_taken):
 					j = j + 1
 					if j == len(list_inf):
 						j = 0
@@ -203,6 +271,26 @@ class TournamentController():
 			i = i + 1
 
 		return list_games
+
+# Généré un match valide
+# Faire l'appel récursif avec les nouveau (bon) param
+# Si ça revoit false, test un autre match
+# Si plus aucun match valide a généré, renvoie false
+# Si un seul match a généré et il est validé, renvoie true
+# Sinon false
+	def get_pair_valid(self, i, j, list_sup, list_inf, list_all_pairs, list_players_taken):
+		pair = (list_sup[i].doc_id, list_inf[j].doc_id)
+		if (pair in list_all_pairs or list_sup[i].doc_id in list_players_taken or list_inf[j].doc_id in list_players_taken):
+			return False
+		else:
+			player_1 = list_sup[i]
+			player_2 = list_inf[j]
+			list_players_taken.append(player_1.doc_id)
+			list_players_taken.append(player_2.doc_id)
+			return get_pair_valid(i + 1,  j + 1, list_sup, list_inf, list_all_pairs, list_players_taken)
+
+
+		return False
 
 
 	def fill_scores(self, list_games):

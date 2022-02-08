@@ -35,6 +35,6 @@ class MainController():
 		if response == "2":
 			self.playerController.get_players_sorted("rank")
 		if response == "3":
-			self.tournamentController.get_list_tournaments()
+			self.tournamentController.get_info_tournaments()
 		elif response == "h":
 			self.home()

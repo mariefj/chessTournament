@@ -74,6 +74,8 @@ class PlayerController():
 
 		player = Player(first_name, last_name, birthdate, gender, rank)
 		player.save()
+		print("id = ", player.doc_id)
+		print("player = ", Player.get_player_by_id(player.doc_id))
 
 		return player
 

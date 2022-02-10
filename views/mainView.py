@@ -61,6 +61,18 @@ class Display():
 			sep=" | "
 		)
 
+	def display_player_object(self, player):
+		print(
+			"id={:<3}".format(player.doc_id),
+			"{:20}".format(player.first_name),
+			"{:20}".format(player.last_name),
+			"{:17}".format(player.birthdate),
+			"{:5}".format(player.gender),
+			"{:5}".format(player.score),
+			player.rank,
+			sep=" | "
+		)
+
 
 	def display_header_player(self):
 		print(
@@ -178,14 +190,26 @@ class Display():
 	#******************GAME********************************************************************************************
 
 
-	def display_game(self, player_1, player_2, score_1, score_2):
-		message = 	"Match opposant les joueurs "\
-				+ str(player_1["first_name"]) + " " + str(player_1["last_name"])\
-				+ " id (" + str(player_1.doc_id) + ")"\
-				+ " - score obtenu (" + str(score_1) + ") -"\
-				+ " et "\
-				+ str(player_2["first_name"]) + " " + str(player_2["last_name"])\
-				+ " id (" + str(player_2.doc_id) + ")"\
-				+ " - score obtenu (" + str(score_2) + ")"
-		print(message)
+	def display_header_games(self):
+		print(
+			"{:41}".format("Joueur 1"),
+			"{:6}".format("ID"),
+			"{:6}".format("Score"),
+			"{:41}".format("Joueur 2"),
+			"{:6}".format("ID"),
+			"{:6}".format("Score"),
+			sep=" | "
+		)
 		print()
+
+
+	def display_game(self, player_1, player_2, score_1, score_2):
+		print(
+			"{0:20} {1:20}".format(player_1.first_name, player_1.last_name),
+			"id={:<3}".format(player_1.doc_id),
+			"{:6}".format(score_1),
+			"{0:20} {1:20}".format(player_2.first_name, player_2.last_name),
+			"id={:<3}".format(player_2.doc_id),
+			"{:6}".format(score_2),
+			sep=" | "
+		)

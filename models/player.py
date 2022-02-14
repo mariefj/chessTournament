@@ -28,6 +28,7 @@ class Player:
 		else:
 			self.list_players.insert(self.get_serialized_player())
 
+
 	@staticmethod
 	def get_all_players():
 		return TinyDB("db.json").table("players").all()
@@ -39,6 +40,10 @@ class Player:
 	@staticmethod
 	def get_player_by_name(first_name, last_name):
 		return TinyDB("db.json").table("players").search((Query().first_name == first_name.lower()) & (Query().last_name == last_name.lower()))
+
+	@staticmethod
+	def get_player_with_right_doc_id(player):
+		return TinyDB("db.json").table("players").search((Query().first_name == player.first_name.lower()) & (Query().last_name == player.last_name.lower()) & (Query().birthdate == player.birthdate) & (Query().rank == player.rank))[0]
 
 	@staticmethod
 	def sort_alpha():

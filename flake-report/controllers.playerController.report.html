@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>flake8 violations: controllers/playerController.py</title>
+      <meta http-equiv="Content-Type" value="text/html; charset=UTF-8">
+      <link rel="stylesheet" href="styles.css">
+<script>
+function bindHandler(link) {
+   var code = link.getAttribute('data-code');
+   var key = location.pathname + '#' + code;
+
+   var ul = link.parentNode.querySelector('.details');
+   if (sessionStorage[key] != 'open') {
+      ul.style.display = 'none';
+   }
+   link.addEventListener('click', function (event) {
+      if (!ul.style.display || ul.style.display == 'none') {
+         ul.style.display = 'block';
+         sessionStorage[key] = 'open';
+      } else {
+         ul.style.display = 'none';
+         sessionStorage[key] = 'closed';
+      }
+   });
+}
+
+window.addEventListener('DOMContentLoaded', function () {
+   var links = document.querySelectorAll('#index > li > a');
+   for (var i = 0; i < links.length; i++) {
+      bindHandler(links[i]);
+   }
+});
+</script>
+   </head>
+   <body>
+      <div id="masthead" class="sev-2"></div>
+      <div id="page">
+         <p id="srclink">
+            <a title="View full annotated source"
+               href="controllers.playerController.source.html">
+               <img src="file.svg" alt="&#x2261;">
+            </a></p>
+         <h1>
+            <a href="index.html">
+               <img src="back.svg" alt="&#x2B05;">
+               controllers/playerController.py
+            </a>
+         </h1>
+
+         <ul id="index">
+         
+         <li>
+            <a data-code="W191">
+               <span class="count sev-2">
+                  76
+               </span>
+               <strong>W191:</strong> indentation contains tabs
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="controllers.playerController.source.html#l6">
+                  <tt><i>6</i> 	<span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">home</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l7">
+                  <tt><i>7</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">display</span> <span class="o">=</span> <span class="n">Display</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l8">
+                  <tt><i>8</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">home</span> <span class="o">=</span> <span class="n">home</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l11">
+                  <tt><i>11</i> 	<span class="k">def</span> <span class="nf">manage_players</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l12">
+                  <tt><i>12</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_title</span><span class="p">(</span><span class="s2">&quot;Gestion des joueurs&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l13">
+                  <tt><i>13</i> 		<span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;Créer un joueur&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;Liste des joueurs (ordre alphabétique)&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;Liste des joueurs (ordre de classement)&quot;</span><span class="p">}</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l14">
+                  <tt><i>14</i> 		<span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_menu</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l15">
+                  <tt><i>15</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l16">
+                  <tt><i>16</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">create_player</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l17">
+                  <tt><i>17</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l18">
+                  <tt><i>18</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">get_players_sorted</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l19">
+                  <tt><i>19</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">modify_player</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l20">
+                  <tt><i>20</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l21">
+                  <tt><i>21</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">get_players_sorted</span><span class="p">(</span><span class="s2">&quot;rank&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l22">
+                  <tt><i>22</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">modify_player</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l23">
+                  <tt><i>23</i> 		<span class="k">elif</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l24">
+                  <tt><i>24</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">home</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l25">
+                  <tt><i>25</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">manage_players</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l28">
+                  <tt><i>28</i> 	<span class="k">def</span> <span class="nf">choose_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l29">
+                  <tt><i>29</i> 		<span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;Créer un joueur&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;Charger un joueur par son id&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;Charger un joueur par son nom&quot;</span><span class="p">}</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l30">
+                  <tt><i>30</i> 		<span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_menu</span><span class="p">(</span><span class="n">menu</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l31">
+                  <tt><i>31</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l32">
+                  <tt><i>32</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">create_player</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l33">
+                  <tt><i>33</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l34">
+                  <tt><i>34</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">get_players_sorted</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l35">
+                  <tt><i>35</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_id</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l36">
+                  <tt><i>36</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l37">
+                  <tt><i>37</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">get_players_sorted</span><span class="p">(</span><span class="s2">&quot;alpha&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l38">
+                  <tt><i>38</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_name</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l39">
+                  <tt><i>39</i> 		<span class="k">elif</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;h&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l40">
+                  <tt><i>40</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">home</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l41">
+                  <tt><i>41</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">choose_player</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l44">
+                  <tt><i>44</i> 	<span class="k">def</span> <span class="nf">select_player_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l45">
+                  <tt><i>45</i> 		<span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer l&#39;id du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l46">
+                  <tt><i>46</i> 		<span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="o">.</span><span class="n">get_player_by_id</span><span class="p">(</span><span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l47">
+                  <tt><i>47</i> 		<span class="k">if</span> <span class="ow">not</span> <span class="n">player</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l48">
+                  <tt><i>48</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_message</span><span class="p">(</span><span class="s2">&quot;Joueur non trouvé, recommencez&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l49">
+                  <tt><i>49</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_id</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l50">
+                  <tt><i>50</i> 		<span class="k">return</span> <span class="n">Player</span><span class="p">(</span><span class="o">**</span><span class="n">player</span><span class="p">,</span> <span class="n">doc_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l53">
+                  <tt><i>53</i> 	<span class="k">def</span> <span class="nf">select_player_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l54">
+                  <tt><i>54</i> 		<span class="n">first_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le prénom du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l55">
+                  <tt><i>55</i> 		<span class="n">last_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le nom du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l56">
+                  <tt><i>56</i> 		<span class="n">list_matches</span> <span class="o">=</span> <span class="n">Player</span><span class="o">.</span><span class="n">get_player_by_name</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l57">
+                  <tt><i>57</i> 		<span class="k">if</span> <span class="n">list_matches</span> <span class="o">==</span> <span class="p">[]:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l58">
+                  <tt><i>58</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_message</span><span class="p">(</span><span class="s2">&quot;Joueur non trouvé, recommencez&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l59">
+                  <tt><i>59</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_name</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l60">
+                  <tt><i>60</i> 		<span class="k">elif</span> <span class="nb">len</span><span class="p">(</span><span class="n">list_matches</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l61">
+                  <tt><i>61</i> 			<span class="n">player</span> <span class="o">=</span> <span class="n">list_matches</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l62">
+                  <tt><i>62</i> 			<span class="k">return</span> <span class="n">Player</span><span class="p">(</span><span class="o">**</span><span class="n">player</span><span class="p">,</span> <span class="n">doc_id</span><span class="o">=</span><span class="nb">int</span><span class="p">(</span><span class="nb">id</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l63">
+                  <tt><i>63</i> 		<span class="k">else</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l64">
+                  <tt><i>64</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_list_players</span><span class="p">(</span><span class="n">list_matches</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l65">
+                  <tt><i>65</i> 			<span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_id</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l68">
+                  <tt><i>68</i> 	<span class="k">def</span> <span class="nf">create_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l69">
+                  <tt><i>69</i> 		<span class="n">first_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le prénom: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l70">
+                  <tt><i>70</i> 		<span class="n">last_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le nom: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l71">
+                  <tt><i>71</i> 		<span class="n">birthdate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer la date de naissance (jj/mm/aaaa): &quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l72">
+                  <tt><i>72</i> 		<span class="n">gender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le genre (h-f-nb): &quot;</span><span class="p">,</span> <span class="s2">&quot;^(h|f|nb)$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l73">
+                  <tt><i>73</i> 		<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l75">
+                  <tt><i>75</i> 		<span class="n">player</span> <span class="o">=</span> <span class="n">Player</span><span class="p">(</span><span class="n">first_name</span><span class="p">,</span> <span class="n">last_name</span><span class="p">,</span> <span class="n">birthdate</span><span class="p">,</span> <span class="n">gender</span><span class="p">,</span> <span class="n">rank</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l76">
+                  <tt><i>76</i> 		<span class="n">player</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l77">
+                  <tt><i>77</i> 		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;id = &quot;</span><span class="p">,</span> <span class="n">player</span><span class="o">.</span><span class="n">doc_id</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l78">
+                  <tt><i>78</i> 		<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;player = &quot;</span><span class="p">,</span> <span class="n">Player</span><span class="o">.</span><span class="n">get_player_by_id</span><span class="p">(</span><span class="n">player</span><span class="o">.</span><span class="n">doc_id</span><span class="p">))</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l80">
+                  <tt><i>80</i> 		<span class="k">return</span> <span class="n">player</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l83">
+                  <tt><i>83</i> 	<span class="k">def</span> <span class="nf">get_players_sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_type</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l84">
+                  <tt><i>84</i> 		<span class="n">list_players</span> <span class="o">=</span> <span class="n">Player</span><span class="o">.</span><span class="n">sort_alpha</span><span class="p">()</span> <span class="k">if</span> <span class="n">sort_type</span> <span class="o">==</span> <span class="s2">&quot;alpha&quot;</span> <span class="k">else</span> <span class="n">Player</span><span class="o">.</span><span class="n">sort_rank</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l85">
+                  <tt><i>85</i> 		<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_list_players</span><span class="p">(</span><span class="n">list_players</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l88">
+                  <tt><i>88</i> 	<span class="k">def</span> <span class="nf">modify_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l89">
+                  <tt><i>89</i> 		<span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Souhaitez vous changer le classement d&#39;un joueur ? 1: oui 2: non</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;^(1|2)$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l90">
+                  <tt><i>90</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;1&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l91">
+                  <tt><i>91</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_message</span><span class="p">(</span><span class="s2">&quot;Choisissez l&#39;id d&#39;un joueur pour changer son classement&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l92">
+                  <tt><i>92</i> 			<span class="n">player</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">select_player_by_id</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l93">
+                  <tt><i>93</i> 			<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l95">
+                  <tt><i>95</i> 			<span class="n">player</span><span class="o">.</span><span class="n">rank</span> <span class="o">=</span> <span class="n">rank</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l96">
+                  <tt><i>96</i> 			<span class="n">player</span><span class="o">.</span><span class="n">save</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l97">
+                  <tt><i>97</i> 		<span class="k">if</span> <span class="n">response</span> <span class="o">==</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l98">
+                  <tt><i>98</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">manage_players</span><span class="p">()</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E501">
+               <span class="count sev-2">
+                  14
+               </span>
+               <strong>E501:</strong> line too long (128 > 79 characters)
+               
+                  (and 13 similar)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <p>Line too long (128 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l13">
+                  <tt><i>13</i> 		<span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;Créer un joueur&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;Liste des joueurs (ordre alphabétique)&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;Liste des joueurs (ordre de classement)&quot;</span><span class="p">}</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (108 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l29">
+                  <tt><i>29</i> 		<span class="n">menu</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;1&quot;</span><span class="p">:</span> <span class="s2">&quot;Créer un joueur&quot;</span><span class="p">,</span> <span class="s2">&quot;2&quot;</span><span class="p">:</span> <span class="s2">&quot;Charger un joueur par son id&quot;</span><span class="p">,</span> <span class="s2">&quot;3&quot;</span><span class="p">:</span> <span class="s2">&quot;Charger un joueur par son nom&quot;</span><span class="p">}</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (82 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l45">
+                  <tt><i>45</i> 		<span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer l&#39;id du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (101 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l54">
+                  <tt><i>54</i> 		<span class="n">first_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le prénom du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (97 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l55">
+                  <tt><i>55</i> 		<span class="n">last_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le nom du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (91 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l69">
+                  <tt><i>69</i> 		<span class="n">first_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le prénom: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (87 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l70">
+                  <tt><i>70</i> 		<span class="n">last_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le nom: &quot;</span><span class="p">,</span> <span class="s2">&quot;^[a-zA-Z]+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (107 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l71">
+                  <tt><i>71</i> 		<span class="n">birthdate</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer la date de naissance (jj/mm/aaaa): &quot;</span><span class="p">,</span> <span class="s2">&quot;date&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (94 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l72">
+                  <tt><i>72</i> 		<span class="n">gender</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le genre (h-f-nb): &quot;</span><span class="p">,</span> <span class="s2">&quot;^(h|f|nb)$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (120 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l73">
+                  <tt><i>73</i> 		<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (84 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l84">
+                  <tt><i>84</i> 		<span class="n">list_players</span> <span class="o">=</span> <span class="n">Player</span><span class="o">.</span><span class="n">sort_alpha</span><span class="p">()</span> <span class="k">if</span> <span class="n">sort_type</span> <span class="o">==</span> <span class="s2">&quot;alpha&quot;</span> <span class="k">else</span> <span class="n">Player</span><span class="o">.</span><span class="n">sort_rank</span><span class="p">()</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (124 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l89">
+                  <tt><i>89</i> 		<span class="n">response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Souhaitez vous changer le classement d&#39;un joueur ? 1: oui 2: non</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;^(1|2)$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (90 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l91">
+                  <tt><i>91</i> 			<span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">display_message</span><span class="p">(</span><span class="s2">&quot;Choisissez l&#39;id d&#39;un joueur pour changer son classement&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <p>Line too long (121 > 79 characters):</p>
+               
+               <a href="controllers.playerController.source.html#l93">
+                  <tt><i>93</i> 			<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E303">
+               <span class="count sev-2">
+                  7
+               </span>
+               <strong>E303:</strong> too many blank lines (2)
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="controllers.playerController.source.html#l11">
+                  <tt><i>11</i> 	<span class="k">def</span> <span class="nf">manage_players</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l28">
+                  <tt><i>28</i> 	<span class="k">def</span> <span class="nf">choose_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l44">
+                  <tt><i>44</i> 	<span class="k">def</span> <span class="nf">select_player_by_id</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l53">
+                  <tt><i>53</i> 	<span class="k">def</span> <span class="nf">select_player_by_name</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l68">
+                  <tt><i>68</i> 	<span class="k">def</span> <span class="nf">create_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l83">
+                  <tt><i>83</i> 	<span class="k">def</span> <span class="nf">get_players_sorted</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">sort_type</span><span class="p">):</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l88">
+                  <tt><i>88</i> 	<span class="k">def</span> <span class="nf">modify_player</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W605">
+               <span class="count sev-2">
+                  3
+               </span>
+               <strong>W605:</strong> invalid escape sequence '\d'
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="controllers.playerController.source.html#l45">
+                  <tt><i>45</i> 		<span class="nb">id</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer l&#39;id du joueur: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d+$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l73">
+                  <tt><i>73</i> 		<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li><li>
+               
+               <a href="controllers.playerController.source.html#l93">
+                  <tt><i>93</i> 			<span class="n">rank</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">display</span><span class="o">.</span><span class="n">verified_response</span><span class="p">(</span><span class="s2">&quot;Veuillez entrer le classement (score compris entre 100 et 9999: &quot;</span><span class="p">,</span> <span class="s2">&quot;^\d{3,4}$&quot;</span><span class="p">)</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="E302">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>E302:</strong> expected 2 blank lines, found 1
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="controllers.playerController.source.html#l4">
+                  <tt><i>4</i> <span class="k">class</span> <span class="nc">PlayerController</span><span class="p">():</span></tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         <li>
+            <a data-code="W391">
+               <span class="count sev-2">
+                  1
+               </span>
+               <strong>W391:</strong> blank line at end of file
+               
+            </a>
+            <ul class="details">
+            <li>
+               
+               <a href="controllers.playerController.source.html#l99">
+                  <tt><i>99</i> &nbsp;</tt>
+               </a>
+            </li>
+            </ul>
+         </li>
+         
+         </ul>
+      </div>
+   </body>
+</html>

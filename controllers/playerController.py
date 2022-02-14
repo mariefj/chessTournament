@@ -74,10 +74,8 @@ class PlayerController():
 
 		player = Player(first_name, last_name, birthdate, gender, rank)
 		player.save()
-		print("id = ", player.doc_id)
-		print("player = ", Player.get_player_by_id(player.doc_id))
 
-		return player
+		return Player.get_player_with_right_doc_id(player)
 
 
 	def get_players_sorted(self, sort_type):

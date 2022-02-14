@@ -181,9 +181,9 @@ class TournamentController():
 				self.get_players_display_games(list_games)
 				is_over = self.display.verified_response("Tapez 1 pour marquer le tour comme terminé: ", "^(1)$")
 
-				tournament = manage_end_round(is_over, list_games, tournament)
+				tournament = self.manage_end_round(name, time_start, is_over, list_games, tournament)
 
-		tournament = manage_end_tournament(tournament)
+		tournament = self.manage_end_tournament(tournament)
 
 		return tournament
 
@@ -198,7 +198,7 @@ class TournamentController():
 			self.display.display_pairs_players(player_1, player_2)
 
 
-	def manage_end_round(self, is_over, list_games, tournament):
+	def manage_end_round(self, name, time_start, is_over, list_games, tournament):
 		if is_over:
 			time_end = str(datetime.datetime.today())
 			self.display.display_message("Fin du tour, veuillez rentrer les scores des joueurs: ")
@@ -279,8 +279,9 @@ class TournamentController():
 
 
 	def copy_list(self, dest, src):
-		for i in range(len(src)):
-			dest[i] = src[i]
+		dest = []
+		for i in range(len(src) - 1):
+			dest.append(src[i])
 
 
 	def get_list_games_next_rounds(self, list_games, list_players, list_all_pairs):
@@ -288,22 +289,29 @@ class TournamentController():
 		list_players_copy = list_players.copy()
 		ret = False
 
-		for i in range(len(list_players)):
+		print("list_players = ", list_players)
+
+		for i in range(len(list_players) - 1):
+			if i + 1 >= len(list_players):
+				break
 			player_1 = list_players[0]
 			player_2 = list_players[i + 1]
 			pair = (player_1.doc_id, player_2.doc_id)
 
 			if len(list_players) == 2 and pair not in list_all_pairs:
+				print("TEST 1")
 				list_games.append(([player_1.doc_id, 0], [player_2.doc_id, 0]))
 
 				return True
 
 			if pair not in list_all_pairs:
+				print("TEST 2")
 				list_games.append(([player_1.doc_id, 0], [player_2.doc_id, 0]))
 				list_players.remove(player_1)
 				list_players.remove(player_2)
 				ret = self.get_list_games_next_rounds(list_games, list_players, list_all_pairs)
 			if ret:
+				print("TEST 3")
 				return True
 
 			self.copy_list(list_games, list_games_copy)

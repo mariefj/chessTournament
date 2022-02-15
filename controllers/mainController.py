@@ -38,3 +38,4 @@ class MainController():
 			self.tournamentController.get_info_tournaments()
 		elif response == "h":
 			self.home()
+		self.get_data()

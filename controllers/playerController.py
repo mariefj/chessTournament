@@ -59,6 +59,7 @@ class PlayerController():
 			return self.select_player_by_name()
 		elif len(list_matches) == 1:
 			player = list_matches[0]
+			id = Player.get_player_with_right_doc_id(Player(**player)).doc_id
 			return Player(**player, doc_id=int(id))
 		else:
 			self.display.display_list_players(list_matches)

@@ -72,15 +72,18 @@ class TournamentController():
 
 	def get_list_games_tournament(self, list_rounds):
 		list_games = []
-		self.display.display_header_games()
-		for round in list_rounds:
-			for game in round["list_games"]:
-				id_1 = game[0][0]
-				id_2 = game[1][0]
-				player_1, player_2 = self.get_players_objects(id_1, id_2)
-				score_1 = game[0][1]
-				score_2 = game[1][1]
-				self.display.display_game(player_1, player_2, score_1, score_2)
+		if list_rounds == []:
+			self.display.display_message("Il n'y a aucun match à afficher pour le moment")
+		else:
+			self.display.display_header_games()
+			for round in list_rounds:
+				for game in round["list_games"]:
+					id_1 = game[0][0]
+					id_2 = game[1][0]
+					player_1, player_2 = self.get_players_objects(id_1, id_2)
+					score_1 = game[0][1]
+					score_2 = game[1][1]
+					self.display.display_game(player_1, player_2, score_1, score_2)
 
 
 	def get_list_tournaments(self):
@@ -212,6 +215,7 @@ class TournamentController():
 
 
 	def update_rank_players(self, list_players):
+		self.display.display_message("Mise à jour des scores")
 		for id in list_players:
 			player = Player.get_player_by_id(id)
 			player = Player(**player, doc_id=id)
@@ -279,43 +283,39 @@ class TournamentController():
 
 
 	def copy_list(self, dest, src):
-		dest = []
-		for i in range(len(src) - 1):
+		for i in range(len(dest)):
+			dest.pop()
+		for i in range(len(src)):
 			dest.append(src[i])
 
 
-	def get_list_games_next_rounds(self, list_games, list_players, list_all_pairs):
+	def get_list_games_next_rounds(self, list_games, list_players, list_all_pairs, test=0):
 		list_games_copy = list_games.copy()
 		list_players_copy = list_players.copy()
 		ret = False
+		i = 1
 
-		print("list_players = ", list_players)
-
-		for i in range(len(list_players) - 1):
-			if i + 1 >= len(list_players):
-				break
+		while i < len(list_players):
 			player_1 = list_players[0]
-			player_2 = list_players[i + 1]
+			player_2 = list_players[i]
 			pair = (player_1.doc_id, player_2.doc_id)
 
 			if len(list_players) == 2 and pair not in list_all_pairs:
-				print("TEST 1")
 				list_games.append(([player_1.doc_id, 0], [player_2.doc_id, 0]))
 
 				return True
 
 			if pair not in list_all_pairs:
-				print("TEST 2")
 				list_games.append(([player_1.doc_id, 0], [player_2.doc_id, 0]))
 				list_players.remove(player_1)
 				list_players.remove(player_2)
-				ret = self.get_list_games_next_rounds(list_games, list_players, list_all_pairs)
+				ret = self.get_list_games_next_rounds(list_games, list_players, list_all_pairs, test + 1)
 			if ret:
-				print("TEST 3")
 				return True
 
 			self.copy_list(list_games, list_games_copy)
 			self.copy_list(list_players, list_players_copy)
+			i += 1
 
 		return False
 

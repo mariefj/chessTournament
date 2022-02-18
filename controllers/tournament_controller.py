@@ -1,10 +1,10 @@
 import datetime
 
-from views.mainView import Display
+from views.main_view import Display
 from models.player import Player
 from models.tournament import Tournament
 from models.round import Round
-from .playerController import PlayerController
+from .player_controller import PlayerController
 
 
 class TournamentController:
@@ -14,6 +14,8 @@ class TournamentController:
         self.playerController = PlayerController(home)
 
     def get_info_tournaments(self):
+        """ Display tournaments and tournament info choice menu
+        and does the right action according to user choice """
         self.display_tournaments()
 
         menu = {"1": "Voir les infos d'un tournoi"}
@@ -28,6 +30,8 @@ class TournamentController:
         self.get_info_tournaments()
 
     def select_tournament_by_id(self):
+        """ Returns a Tournament's instance
+        accordind to id's choice of user """
         id = self.display.verified_response(
             "Veuillez entrer l'id du tournoi: ", r"^\d+$"
         )
@@ -40,6 +44,8 @@ class TournamentController:
         return Tournament(**tournament, doc_id=int(id))
 
     def choose_info_tournament(self, tournament):
+        """ Display tournament info menu
+        and does the right action according to user choice """
         menu = {
             "1": "Voir les joueurs du tournoi",
             "2": "Voir les tours du tournoi",
@@ -59,15 +65,19 @@ class TournamentController:
         self.choose_info_tournament(tournament)
 
     def get_list_players_tournament(self, tournament):
+        """ Returns all the players of a tournament """
         list_players = []
         for id in tournament.list_players:
             list_players.append(Player.get_player_by_id(id))
         self.display.display_list_players(list_players)
 
     def get_list_rounds_tournament(self, list_rounds):
+        """ Returns all the rounds of a tournament """
         self.display.display_list_rounds(list_rounds)
 
     def get_players_objects(self, id_1, id_2):
+        """ Returns two Player's instances
+        according to the object's player given in parameters """
         player_1 = Player.get_player_by_id(id_1)
         player_1 = Player(**player_1, doc_id=id_1)
         player_2 = Player.get_player_by_id(id_2)
@@ -76,6 +86,7 @@ class TournamentController:
         return player_1, player_2
 
     def get_list_games_tournament(self, list_rounds):
+        """ Display all the games of a tournament """
         if list_rounds == []:
             self.display.display_message(
                 "Il n'y a aucun match à afficher pour le moment"
@@ -98,10 +109,13 @@ class TournamentController:
                     )
 
     def display_tournaments(self):
+        """ Display all the tournaments from database """
         list_tournaments = Tournament.get_all_tournaments()
         self.display.display_list_tournaments(list_tournaments)
 
     def launch_tournament(self):
+        """ Display tournament management menu
+        and does the right action according to user choice """
         self.display.display_title("Gestion des tournois")
         menu = {"1": "Créer un tournoi", "2": "Charger un tournoi"}
         response = self.display.display_menu(menu)
@@ -117,6 +131,8 @@ class TournamentController:
         self.launch_tournament()
 
     def create_tournament(self):
+        """ Create a new tournament with all info given by user
+        and this new tournament in database """
         self.display.display_title("Création d'un tournoi")
 
         name = input("Veuillez entrer le nom: ")
@@ -150,6 +166,7 @@ class TournamentController:
         tournament.save()
 
     def load_tournament(self):
+        """ Allows to choose a tournament and load it if it's not over """
         self.display.display_title("Chargement d'un tournoi")
         tournament = self.select_tournament_by_id()
 
@@ -163,6 +180,8 @@ class TournamentController:
                 tournament = self.play_tournament(tournament)
 
     def add_players(self, tournament):
+        """ Returns tournament
+        with new players added in tournament.list_players """
         self.display.display_message(
             "\nPour commencer le tournoi veuillez ajouter des joueurs"
         )
@@ -182,6 +201,16 @@ class TournamentController:
     # ******************PLAY TOURNAMENT*********************************
 
     def sort_round(self, list_players, sort_type):
+        """
+        Returns players sorted according to sort_type
+
+            Parameters:
+                list_players (int[]): a list of id's players
+                sort_type (str): a string to determine the sort type
+
+            Returns:
+                list of Player's instances sorted
+        """
         list_players_for_round = []
         for id in list_players:
             player = Player.get_player_by_id(int(id))
@@ -202,6 +231,7 @@ class TournamentController:
             )
 
     def start_round_prompt(self):
+        """ Returns response of starting a new round """
         return self.display.verified_response(
             "Voulez-vous démarrer un tour ?"
             " 1: oui, je lance un nouveau tour - 2: non, retour au menu ",
@@ -209,12 +239,15 @@ class TournamentController:
         )
 
     def end_round_prompt(self):
+        """ Returns response of ending current round """
         return self.display.verified_response(
             "Tapez 1 pour marquer le tour comme terminé: ",
             "^(1)$"
         )
 
     def handle_round(self, tournament):
+        """ Returns tournament if a round has been played,
+        this tournament will contain a new round in list_rounds """
         if self.start_round_prompt() == "2":
             self.launch_tournament()
         else:
@@ -223,6 +256,7 @@ class TournamentController:
         return tournament
 
     def display_games(self, list_games):
+        """ Display all the games that have to be played in current round """
         self.display.display_title("Liste des matchs")
         for game in list_games:
             # game representation : [[id_1, score_1], [id_2, score_2]]
@@ -234,6 +268,16 @@ class TournamentController:
             self.display.display_pairs_players(player_1, player_2)
 
     def handle_update_score(self, player, new_score):
+        """
+        Returns new_score of a player and save new player.score
+
+            Parameters:
+                player (Player): Player's instance
+                new_score (int): score of the player for this game
+
+            Returns:
+                new_score (int) : score of the player for this game
+        """
         self.display.display_player_for_score(player)
         response = self.display.verified_response("", "^(0|1|0.5)$")
         if response:
@@ -245,6 +289,7 @@ class TournamentController:
         return new_score
 
     def fill_scores(self, list_games):
+        """ Returns the list of games updated with players' scores """
         for game in list_games:
             # game representation : [[id_1, score_1], [id_2, score_2]]
             player_1, player_2 = self.get_players_objects(
@@ -265,6 +310,20 @@ class TournamentController:
         list_games,
         tournament
     ):
+        """
+        Returns tournament updated
+        with new round added to list_round
+
+            Parameters:
+                name (str): round's name
+                time_start (str): round's starting time
+                is_over (int): round's attribute to know if round is over
+                list_games (list[[[int, int]]]): round's games
+                tournament (Tournament): current tournament
+
+            Returns:
+                tournament (Tournament) : tournament updated
+        """
         if is_over:
             time_end = str(datetime.datetime.today())
             self.display.display_message(
@@ -279,6 +338,7 @@ class TournamentController:
         return tournament
 
     def update_rank_players(self, list_players):
+        """ Allows to update ranks of all the players from a tournament """
         self.display.display_message("Mise à jour des scores")
         for id in list_players:
             player = Player.get_player_by_id(id)
@@ -293,6 +353,14 @@ class TournamentController:
             player.save()
 
     def reset_score_players(self, list_rounds, nb_rounds, list_players):
+        """
+        Reset the scores of players if all rounds have been played
+
+            Parameters:
+                list_rounds (list[Round]): tournament's rounds
+                nb_rounds (str): tournament's number of rounds
+                list_players (list[int]): tournament's players
+        """
         if len(list_rounds) == int(nb_rounds):
             for id in list_players:
                 player = Player.get_player_by_id(id)
@@ -301,6 +369,8 @@ class TournamentController:
                 player.save()
 
     def manage_end_tournament(self, tournament):
+        """ Returns tournament updated as over
+        after player's scores reset and their ranks updated """
         self.reset_score_players(
             tournament.list_rounds,
             tournament.nb_rounds,
@@ -314,6 +384,7 @@ class TournamentController:
         return tournament
 
     def play_round(self, tournament):
+        """ Returns tournament after playing one round """
         nb_rounds_done = len(tournament.list_rounds)
         list_players = self.sort_round(
             tournament.list_players,
@@ -336,6 +407,7 @@ class TournamentController:
         )
 
     def play_tournament(self, tournament):
+        """ Returns tournament after playing [tournament.nb_rounds] rounds """
         while len(tournament.list_rounds) < int(tournament.nb_rounds):
             tournament = self.handle_round(tournament)
 
@@ -344,6 +416,8 @@ class TournamentController:
     # ******************PAIRING PLAYERS*******************************
 
     def get_list_all_pairs(self, list_rounds):
+        """ Returns all pairs of players
+        that were played during the tournament """
         list_pairs = []
         for round in list_rounds:
             for game in round["list_games"]:
@@ -355,6 +429,8 @@ class TournamentController:
         return list_pairs
 
     def get_list_games_first_round(self, list_players):
+        """ Returns the games to play for the first round -
+        the players are "mixed" according to their rank """
         half = len(list_players) // 2
         list_sup = list_players[:half]
         list_inf = list_players[half:]
@@ -369,6 +445,7 @@ class TournamentController:
         return list_games
 
     def get_list_games(self, list_players, list_rounds):
+        """ Returns the games to play weither it's first or other rounds """
         list_games = []
         list_all_pairs = self.get_list_all_pairs(list_rounds)
 
@@ -392,6 +469,19 @@ class TournamentController:
     def get_list_games_next_rounds(
         self, list_games, list_players, list_all_pairs
     ):
+        """
+        Fill list_games with games to play where
+        players are paired according to swiss system
+
+            Parameters:
+                list_games (list[[[int, int]]]): round's games
+                list_players (list): players sorted by their scores
+                list_all_pairs (list[(int, int)]): all players' paired
+                in all previous games
+
+            Returns:
+                bool: Weither the pair is valid or not
+        """
         list_games_copy = list_games.copy()
         list_players_copy = list_players.copy()
         ret = False

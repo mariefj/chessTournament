@@ -1,15 +1,18 @@
-from views.mainView import Display
-from .playerController import PlayerController
-from .tournamentController import TournamentController
+from views.main_view import Display
+from .player_controller import PlayerController
+from .tournament_controller import TournamentController
 
 
 class MainController:
     def __init__(self):
         self.display = Display()
+        # Passing self.home in parameters allows returning to principal menu
         self.playerController = PlayerController(self.home)
         self.tournamentController = TournamentController(self.home)
 
     def home(self):
+        """ Display principal menu
+        and does the right action according to user choice """
         self.display.display_title("Accueil")
         menu = {
             "1": "Lancer un tournoi",
@@ -30,6 +33,8 @@ class MainController:
             self.home()
 
     def get_data(self):
+        """ Display data menu
+        and does the right action according to user choice """
         self.display.display_title("Toutes les données")
         menu = {
             "1": "Liste des joueurs (ordre alphabétique)",

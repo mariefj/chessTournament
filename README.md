@@ -28,7 +28,7 @@ The script is used via a terminal interface. The database is a document oriented
 First, start by cloning the repository:
 
 ```
-git clone https://github.com/mariefj/chessTournament.git
+git clone git@github.com:mariefj/chessTournament.git
 ```
 
 - Access the project folder

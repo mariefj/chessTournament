@@ -53,7 +53,7 @@ pip install -r requirements.txt
 
 - Start
 ```
-python main.py
+python chess-tournament.py
 ```
 
 #### PLAYER MANAGEMENT : <a name="player-management"></a> ####
@@ -87,7 +87,7 @@ access to all tournament's info, which includes the players, the rounds and the 
 To generate flake-8 reports, the command is :
 
 ```
-flake8 --format=html --htmldir=flake-report --exclude env/
+flake8 --format=html --htmldir=flake8_rapport --exclude env/
 ```
 
 The reports will be generated in the folder : flake-report

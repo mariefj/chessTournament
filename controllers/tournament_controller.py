@@ -399,7 +399,7 @@ class TournamentController:
         self.display_games(list_games)
 
         return self.manage_end_round(
-            "Round" + str(nb_rounds_done + 1),
+            "Round " + str(nb_rounds_done + 1),
             str(datetime.datetime.today()),
             self.end_round_prompt(),
             list_games,

@@ -74,7 +74,7 @@ Once a new tournament was created, you have to add 8 players to begin first roun
 At each round the program shows the games to play, then you choose to begin and end the round, 
 and report players's scores.
 
-At the end of the tournament, you'll be able to update players'rank.
+At the end of the tournament, you'll be able to update players' ranks.
 
 #### DATA VISUALISATION : <a name="data-visualisation"></a> ####
 
@@ -84,10 +84,10 @@ access to all tournament's info, which includes the players, the rounds and the 
 
 #### FLAKE-8 REPORT : <a name="flake8"></a> ####
 
-To generate flake-8 reports, the command is :
+To generate flake-8 report, the command is :
 
 ```
 flake8 --format=html --htmldir=flake8_rapport --exclude env/
 ```
 
-The reports will be generated in the folder : flake-report
+The report will be generated in the folder : flake8_rapport

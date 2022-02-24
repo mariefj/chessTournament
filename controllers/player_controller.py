@@ -106,7 +106,7 @@ class PlayerController:
             "Veuillez entrer le genre (h-f-nb): ", "^(h|f|nb)$"
         )
         rank = self.display.verified_response(
-            "Veuillez entrer le classement (score compris entre 100 et 9999: ",
+            "Veuillez entrer le classement (score compris entre 100 et 9999): ",
             r"^\d{3,4}$",
         )
 
